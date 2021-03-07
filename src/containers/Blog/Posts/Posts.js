@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 import "./Posts.css";
 import Post from "../../../components/Post/Post";
@@ -32,9 +31,9 @@ class Posts extends Component {
     }
   }
 
-  // selectedPost = (id) => {
-  //   this.setState({ selectedPost: id });
-  // };
+  selectedPost = (id) => {
+    this.props.history.push(`/posts/${id}`);
+  };
 
   render() {
     let posts = (
@@ -44,13 +43,12 @@ class Posts extends Component {
     if (!this.state.error) {
       posts = this.state.posts.map((post) => {
         return (
-          <Link to={`/posts/${post.id}`} key={post.id}>
-            <Post
-              title={post.title}
-              author={post.author}
-              // clicked={() => this.selectedPost(post.id)}
-            />
-          </Link>
+          <Post
+            key={post.id}
+            title={post.title}
+            author={post.author}
+            clicked={() => this.selectedPost(post.id)}
+          />
         );
       });
     }
