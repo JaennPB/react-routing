@@ -7,8 +7,9 @@ class FullPost extends Component {
     loadedPost: null,
   };
 
-  async componentDidUpdate() {
-    const id = this.props.id;
+  async componentDidMount() {
+    console.log(this.props);
+    const id = this.props.match.params.postId;
     const loadedPost = this.state.loadedPost;
 
     if ((id && !loadedPost) || (id && loadedPost && loadedPost.id !== id)) {
@@ -17,7 +18,7 @@ class FullPost extends Component {
         const data = await res.json();
         this.setState({ loadedPost: data });
 
-        console.log(data);
+        // console.log(data);
         console.log("ASYNC --- SELECTING POST ---");
       } catch (err) {
         alert(err);

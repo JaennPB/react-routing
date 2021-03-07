@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import "./Posts.css";
 import Post from "../../../components/Post/Post";
@@ -9,7 +10,7 @@ class Posts extends Component {
   };
 
   async componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
     try {
       const res = await fetch("https://jsonplaceholder.typicode.com/posts ");
       if (!res.ok) throw new Error("Failed to fetch...");
@@ -31,9 +32,9 @@ class Posts extends Component {
     }
   }
 
-  selectedPost = (id) => {
-    this.setState({ selectedPost: id });
-  };
+  // selectedPost = (id) => {
+  //   this.setState({ selectedPost: id });
+  // };
 
   render() {
     let posts = (
@@ -43,12 +44,13 @@ class Posts extends Component {
     if (!this.state.error) {
       posts = this.state.posts.map((post) => {
         return (
-          <Post
-            title={post.title}
-            key={post.id}
-            author={post.author}
-            clicked={() => this.selectedPost(post.id)}
-          />
+          <Link to={`/posts/${post.id}`} key={post.id}>
+            <Post
+              title={post.title}
+              author={post.author}
+              // clicked={() => this.selectedPost(post.id)}
+            />
+          </Link>
         );
       });
     }
