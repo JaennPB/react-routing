@@ -7,6 +7,10 @@ import NewPost from "./NewPost/NewPost";
 import FullPost from "./FullPost/FullPost";
 
 class Blog extends Component {
+  state = {
+    authenticated: false,
+  };
+
   render() {
     return (
       <div className="Blog">
@@ -27,8 +31,14 @@ class Blog extends Component {
         <Redirect from="/" to="/new-post" />
         <Switch>
           <Route path="/" exact component={Posts} />
+          {/* {this is a guard} */}
+          {/* {this.state.authenticated ? (
+            <Route path="/new-post" component={NewPost} />
+          ) : null} */}
           <Route path="/new-post" component={NewPost} />
           <Route path="/:postId" component={FullPost} />
+          {/* creating a 404 catch, or unknown paths */}
+          {/* <Route render={() => <h1>404 NOT FOUND</h1>} /> */}
         </Switch>
       </div>
     );

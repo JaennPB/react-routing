@@ -12,6 +12,8 @@ class NewPost extends Component {
   };
 
   componentDidMount() {
+    // this is also a guard
+    // if (!autheticated) this.props.history.replace('/')
     console.log(this.props);
   }
 
