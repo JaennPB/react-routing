@@ -3,8 +3,15 @@ import { Route, NavLink, Switch, Redirect } from "react-router-dom";
 
 import "./Blog.css";
 import Posts from "./Posts/Posts";
-import NewPost from "./NewPost/NewPost";
 import FullPost from "./FullPost/FullPost";
+
+// creating a lazy loading component
+// import NewPost from "./NewPost/NewPost";
+import asyncComponent from "../../hoc/asyncComponent";
+
+const asyncNewPost = asyncComponent(() => {
+  return import("./NewPost/NewPost");
+});
 
 class Blog extends Component {
   state = {
@@ -35,7 +42,7 @@ class Blog extends Component {
           {/* {this.state.authenticated ? (
             <Route path="/new-post" component={NewPost} />
           ) : null} */}
-          <Route path="/new-post" component={NewPost} />
+          <Route path="/new-post" component={asyncNewPost} />
           <Route path="/:postId" component={FullPost} />
           {/* creating a 404 catch, or unknown paths */}
           {/* <Route render={() => <h1>404 NOT FOUND</h1>} /> */}
