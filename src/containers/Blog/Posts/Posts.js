@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import "./Posts.css";
 import Post from "../../../components/Post/Post";
@@ -31,10 +32,6 @@ class Posts extends Component {
     }
   }
 
-  selectedPost = (id) => {
-    this.props.history.push(`/posts/${id}`);
-  };
-
   render() {
     let posts = (
       <p style={{ textAlign: "center" }}>FAILED TO FETCH... PLEASE TRY AGAIN</p>
@@ -43,12 +40,9 @@ class Posts extends Component {
     if (!this.state.error) {
       posts = this.state.posts.map((post) => {
         return (
-          <Post
-            key={post.id}
-            title={post.title}
-            author={post.author}
-            clicked={() => this.selectedPost(post.id)}
-          />
+          <Link to={`/${post.id}`} key={post.id}>
+            <Post key={post.id} title={post.title} author={post.author} />
+          </Link>
         );
       });
     }

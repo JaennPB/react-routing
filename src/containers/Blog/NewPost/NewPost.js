@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 
 import "./NewPost.css";
 
@@ -7,6 +8,7 @@ class NewPost extends Component {
     title: "",
     content: "",
     author: "",
+    submitted: false,
   };
 
   componentDidMount() {
@@ -30,6 +32,11 @@ class NewPost extends Component {
       };
 
       const res = await fetch("https://jsonplaceholder.typicode.com/posts/", options);
+      this.setState({ submitted: true });
+      // to redirect without using state or <Redirect>
+      // this.props.history.push('/') pushes new page on page stack
+      // this.props.history.replace('/') replaces page with new path (similar to <Redirect>)
+      // !!!! .REPLACE() IS EASIER AND NEEDS LESS CODE
 
       console.log(res);
       console.log("ASYNC --- POSTING POST ---");
@@ -39,8 +46,13 @@ class NewPost extends Component {
   };
 
   render() {
+    let redirected = null;
+    if (this.state.submitted) {
+      redirected = <Redirect to="/" />;
+    }
     return (
       <div className="NewPost">
+        {redirected}
         <h1>Add a Post</h1>
         <label>Title</label>
         <input

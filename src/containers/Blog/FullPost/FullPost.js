@@ -33,7 +33,7 @@ class FullPost extends Component {
       };
 
       const res = await fetch(
-        "https://jsonplaceholder.typicode.com/posts/" + this.props.id,
+        "https://jsonplaceholder.typicode.com/posts/" + this.props.match.params.postId,
         options
       );
 
